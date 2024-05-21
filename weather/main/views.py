@@ -9,13 +9,13 @@ import requests, json
 
 def main(request):
     url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid=90fdc1f0beb1ae5812273c9b26256614"
-    #city = "Las Vegas"
-    response = requests.get(url.format(city)).json()
+    city = "Las Vegas"
     try:
-        response.raise_for_status()
-    except HttpError:
-        return 1
-        #print("Error: ", err)
+        response = requests.get(url.format(city)).json()
+        #response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        raise SystemExit(e)
+        #return 1
     weather = {
         "city" : city,
         "temperature" : response["main"]["temp"],
