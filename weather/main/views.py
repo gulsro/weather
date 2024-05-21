@@ -9,19 +9,26 @@ import requests, json
 
 def main(request):
     url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid=90fdc1f0beb1ae5812273c9b26256614"
-    city = "Las Vegas"
-    try:
-        response = requests.get(url.format(city)).json()
-        #response.raise_for_status()
-    except requests.exceptions.RequestException as e:
-        raise SystemExit(e)
-        #return 1
-    weather = {
-        "city" : city,
-        "temperature" : response["main"]["temp"],
-        'description' : response['weather'][0]['description'],
-        'icon' : response['weather'][0]['icon']
-    }
-    context = {"weather" : weather}
+    #city = "Las Vegas"
+    # try:
+    #     response = requests.get(url.format(city)).json()
+    # except requests.exceptions.RequestException as e:
+    #     raise SystemExit(e)
+    weather_list = []
+    citys = City.objects.all()
+    print(citys)
+    for city in citys:
+        try:
+            response = requests.get(url.format(city.name)).json()
+        except requests.exceptions.RequestException as e:
+            raise SystemExit(e)
+        weather = {
+            "city" : city,
+            "temperature" : response["main"]["temp"],
+            'description' : response['weather'][0]['description'],
+            'icon' : response['weather'][0]['icon']
+        }
+        weather_list.append(weather)
+    context = {"weather_list" : weather_list}
     print(json.dumps(response, indent=4))
     return render(request, 'main/main.html', context)
