@@ -20,15 +20,15 @@ def main(request):
     for city in citys:
         try:
             response = requests.get(url.format(city.name)).json()
+            weather = {
+                "city" : city,
+                "temperature" : response["main"]["temp"],
+                'description' : response['weather'][0]['description'],
+                'icon' : response['weather'][0]['icon']
+                }
+            weather_list.append(weather)
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
-        weather = {
-            "city" : city,
-            "temperature" : response["main"]["temp"],
-            'description' : response['weather'][0]['description'],
-            'icon' : response['weather'][0]['icon']
-        }
-        weather_list.append(weather)
     context = {"weather_list" : weather_list}
     print(json.dumps(response, indent=4))
     return render(request, 'main/main.html', context)
