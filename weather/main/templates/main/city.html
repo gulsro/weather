@@ -1,0 +1,6 @@
+<form action="/city/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <!--<input type="submit" value="Submit">-->
+    <input class="input" type="submit" placeholder="City Name" value="{{ form.name }}">
+</form>

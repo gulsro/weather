@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import City, Weather
 from django.utils import timezone
+from .forms import CityForm
 # When we ask weather, we need an function sends request to
 # WeatherAPI to get a weather response, response will be
 # in JSON format?, also urllib is needed?
@@ -16,7 +17,7 @@ def main(request):
     #     raise SystemExit(e)
     weather_list = []
     citys = City.objects.all()
-    print(citys)
+    #print(citys)
     for city in citys:
         try:
             response = requests.get(url.format(city.name)).json()
@@ -32,3 +33,24 @@ def main(request):
     context = {"weather_list" : weather_list}
     print(json.dumps(response, indent=4))
     return render(request, 'main/main.html', context)
+
+
+
+
+def get_city(request):
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = CityForm(request.POST)
+        # check whether it's valid:
+        # if form.is_valid():
+        #     # process the data in form.cleaned_data as required
+        #     # ...
+        #     # redirect to a new URL:
+        #     return HttpResponseRedirect("/thanks/")
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CityForm()
+
+    return render(request, "main.html", {"form": form})
