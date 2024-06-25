@@ -13,11 +13,9 @@ from django.conf import settings
 
 
 def main(request):
-    city_name = ""
+    #city_name = ""
     api_key = settings.API_KEY
-
-   # url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid=90fdc1f0beb1ae5812273c9b26256614"
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}"
+    url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}"
 
     #city = "Las Vegas"
     # try:
@@ -29,12 +27,12 @@ def main(request):
     #print(citys)
     for city in citys:
         try:
-            response = requests.get(url.format(city.name)).json()
+            response = requests.get(url.format(city.name, api_key)).json()
             weather = {
                 "city" : city,
-               # "temperature" : response['main']['temp'],
-               # 'description' : response['weather'][0]['description'],
-               # 'icon' : response['weather'][0]['icon']
+                "temperature" : response['main']['temp'],
+                'description' : response['weather'][0]['description'],
+                'icon' : response['weather'][0]['icon']
                 }
             weather_list.append(weather)
         except requests.exceptions.RequestException as e:
