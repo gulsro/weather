@@ -8,8 +8,17 @@ from .forms import CityForm
 
 import requests, json
 
+# To use API_KEY
+from django.conf import settings
+
+
 def main(request):
-    url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid=90fdc1f0beb1ae5812273c9b26256614"
+    city_name = ""
+    api_key = settings.API_KEY
+
+   # url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid=90fdc1f0beb1ae5812273c9b26256614"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}"
+
     #city = "Las Vegas"
     # try:
     #     response = requests.get(url.format(city)).json()
@@ -23,9 +32,9 @@ def main(request):
             response = requests.get(url.format(city.name)).json()
             weather = {
                 "city" : city,
-                "temperature" : response["main"]["temp"],
-                'description' : response['weather'][0]['description'],
-                'icon' : response['weather'][0]['icon']
+               # "temperature" : response['main']['temp'],
+               # 'description' : response['weather'][0]['description'],
+               # 'icon' : response['weather'][0]['icon']
                 }
             weather_list.append(weather)
         except requests.exceptions.RequestException as e:
@@ -53,4 +62,4 @@ def get_city(request):
     else:
         form = CityForm()
 
-    return render(request, "main.html", {"form": form})
+    return render(request, "city.html", {"form": form})
