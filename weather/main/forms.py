@@ -10,3 +10,8 @@ class CityForm(ModelForm):
         widget = {"name": TextInput(attrs={"class": "input", "placeholder": "City Name"}),
         }
 
+# 3 steps need to be followed:
+# - get hold of it in the view (fetch it from the database, for example)
+        # (i already did it above)
+# - pass it to the template context
+# - expand it to HTML markup using template variables
