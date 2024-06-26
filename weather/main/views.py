@@ -51,7 +51,7 @@ def main(request):
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
     context = {"weather_list" : weather_list, 'form' : form}
-    print(json.dumps(response, indent=4))
+    #print(json.dumps(response, indent=4))
     return render(request, 'main/main.html', context)
 
 
