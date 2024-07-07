@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 
-from .env import OPENWEATHERMAP_API_KEY  # Import the variable
+from .env import OPENWEATHERMAP_API_KEY  # Import the variable from env.py
 
 # Use the variable as needed
 API_KEY = OPENWEATHERMAP_API_KEY

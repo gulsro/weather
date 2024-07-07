@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from .models import City, Weather
+from django.shortcuts import render, redirect
+from .models import Block
 from django.utils import timezone
-from .forms import CityForm
+from .forms import BlockForm
 
 import requests, json
 
@@ -22,24 +22,31 @@ def main(request):
     # except requests.exceptions.RequestException as e:
     #     raise SystemExit(e)
 
+
+    #read about Post/Redirect/Get PRG pattern! remember httpRedirect 
+
     if request.method == "POST":
-        form = CityForm(request.POST)
+         # csrf token is automatically checked by the middleware
+        form = BlockForm(request.POST)
         if form.is_valid():
             #city = form.save(commit=False)
             form.save()
+            #return redirect("main")
             #city.country = get_country(city.name)
             #city.save()
+
         else:
             print(form.errors)  # Print form errors for debugging
 
-    form = CityForm()
+    form = BlockForm()
     weather_list = []
-    citys = City.objects.all()
+    blocks = Block.objects.all()
 
     #print(citys)
-    for city in citys:
+    for block in blocks:
         try:
-            response = requests.get(url.format(city.name, api_key)).json()
+            #could be replaced w/ get_object_or_404()
+            response = requests.get(url.format(block.city, api_key)).json()
             if response.get('cod') == 200:
                 weather = {
                     "city" : city,
