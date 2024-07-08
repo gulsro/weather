@@ -23,10 +23,10 @@ from django.db import models
 class Block(models.Model):
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
-    temperature = models.FloatField()
     description = models.CharField(max_length=200)
     icon = models.CharField(max_length=20)
-    date_time = models.DateTimeField()
+    temperature = models.FloatField(default=0)
+    #date_time = models.DateTimeField(default="")
     
     def __str__(self):
-        return f"{self.city}- {self.date_time}"
+        return f"{self.city}"

@@ -1,6 +1,8 @@
 from django.forms import ModelForm, TextInput
 from .models import Block
 
+
+
 # ModelForm links created form to model while defining the form
 # sothat i dont need to create an obj in view func for added city, just gonna save it to db
 class BlockForm(ModelForm):
