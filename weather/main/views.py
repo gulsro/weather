@@ -17,14 +17,10 @@ def main(request):
     api_key = settings.API_KEY
     url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}"
 
-    #city = "Las Vegas"
-    # try:
-    #     response = requests.get(url.format(city)).json()
-    # except requests.exceptions.RequestException as e:
-    #     raise SystemExit(e)
-
-
     weather_list = []
+    form = BlockForm()
+    context = {"weather_list" : weather_list, 'form' : form}
+
     #read about Post/Redirect/Get PRG pattern! remember httpRedirect 
 
     if request.method == "POST":
@@ -39,8 +35,8 @@ def main(request):
             if response.get('cod') == 200:
                 weather = {
                     "city" : block.city,
-                    #"temperature" : response['main']['temp'],
-                    #"description" : response['weather'][0]['description'],
+                    "temperature" : response['main']['temp'],
+                    "description" : response['weather'][0]['description'],
                     #"icon" : response['weather'][0]['icon']
                     }
                 weather_list.append(weather)
@@ -51,6 +47,8 @@ def main(request):
 
         else:
             print(form.errors)  # Print form errors for debugging
+    # else:
+    #     form = BlockForm()
 
     return render(request, 'main/main.html', context)
     #form = BlockForm()
