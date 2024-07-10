@@ -20,12 +20,13 @@ from django.db import models
 #         return f"{self.city}- {self.date_time}"
 
 
-class Block(models.Model):
-    city = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
+class City(models.Model):
+    #city = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    #country = models.CharField(max_length=100)
+    temperature = models.FloatField(default=0)
     description = models.CharField(max_length=200)
     icon = models.CharField(max_length=20)
-    temperature = models.FloatField(default=0)
     #date_time = models.DateTimeField(default="")
     
     def __str__(self):

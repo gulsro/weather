@@ -1,15 +1,15 @@
 from django.forms import ModelForm, TextInput
-from .models import Block
+from .models import City
 
 
 
 # ModelForm links created form to model while defining the form
 # sothat i dont need to create an obj in view func for added city, just gonna save it to db
-class BlockForm(ModelForm):
+class CityForm(ModelForm):
     class Meta:
-        model = Block
-        fields = ["city"]
-        widget = {"city": TextInput(attrs={"class": "input", "placeholder": "City name"}),
+        model = City
+        fields = ["name"]
+        widget = {"name": TextInput(attrs={"class": "input", "placeholder": "City name"}),
         }
 
 # 3 steps need to be followed:
