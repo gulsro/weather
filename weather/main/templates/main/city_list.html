@@ -37,7 +37,7 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    What's the weather like?
+                    My history
                 </h1>
             </div>
         </div>
@@ -54,7 +54,14 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
-                    {% for weather in weather_list %}
+                    {% for city in object_list %}
+                    <div class="column is-one-third">
+                        <div class="box">
+                            <h2 class="subtitle">{{ city.name }}</h2>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- {% for weather in weather_list %}
                     <div class="box">
                         <article class="media">
                             <div class="media-left">
@@ -74,7 +81,7 @@
                             </div>
                         </article>
                     </div>
-                    {% endfor %}
+                    {% endfor %} -->
                 </div>
             </div>
         </div>

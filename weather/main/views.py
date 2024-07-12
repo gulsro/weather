@@ -51,7 +51,7 @@ def search(request):
             context = {"weather_list" : weather_list, 'form' : form}
             #return redirect("main")
             #city.country = get_country(city.name)
-            #city.save()
+            city.save()
 
         else:
             print(form.errors)  # Print form errors for debugging

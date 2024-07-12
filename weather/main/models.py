@@ -30,4 +30,4 @@ class City(models.Model):
     #date_time = models.DateTimeField(default="")
     
     def __str__(self):
-        return f"{self.city}"
+        return f"{self.name}"
