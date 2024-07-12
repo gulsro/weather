@@ -1,13 +1,77 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>{{ title }}</title>
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 </head>
 <body>
     <h1>{{ title }}</h1>
     <p>Most accurent real-time weather information for you! </p>
     <a href="{% url 'main:search' %}">Search weather now</a>
     <a href="{% url 'main:citys' %}">See you search history</a>
-    </body>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <title>{{ title }}</title>    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css" />
+    <style>
+        body {
+            background-color: #FFE4B2; /* Light orange background */
+        }
+        input.input {
+            background-color: #F0F8FF; /* Light pastel color */
+            color: #333;
+        }
+        .button.is-success {
+            background-color: #9370DB; /* Light purple */
+            color: #fff; /* White text */
+        }
+        .footer {
+            background-color: #EC7063;
+        }
+        .box {
+            background-color: #D7BDE2;
+            color: #17202A;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <div class="container">
+                <h1>{{ title }}</h1>       
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <p> Most accurent real-time weather information for you! </p>
+                    <a href="{% url 'main:search' %}">Search weather now</a>
+                    <a href="{% url 'main:citys' %}">See you search history</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    </footer>
+</body>
 </html>
