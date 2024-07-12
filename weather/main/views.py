@@ -16,8 +16,12 @@ from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 class CityListView(ListView):
     model = City
 
+def home(request):
+    context = {"title":"WEATHER APP"}
+    return render(request, "main/home.html", context)
 
-def main(request):
+
+def search(request):
     api_key = settings.API_KEY
     url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}"
 
