@@ -28,6 +28,11 @@
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="container">
+            <a class="button is-primary is-outlined" href="{% url 'main:home' %}">Home Page</a>
+        </div>
+    </nav>
     <section class="hero is-warning">
         <div class="hero-body">
             <div class="container">
@@ -41,21 +46,6 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ form }}
-                        <div class="field has-addons">
-                            <!-- <div class="control is-expanded">
-                                {{ form.name }}
-                                <input class="input" type="text" placeholder="City Name" value="{{ form.name }}">
-                            </div> -->
-                            <div class="control">
-                                <button class="button is-success">
-                                    Add City
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
