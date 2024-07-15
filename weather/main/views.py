@@ -44,8 +44,7 @@ def search(request):
         form = CityForm(request.POST)
         #validated form data will be in the form.cleaned_data dictionary
         if form.is_valid():
-            city = form.save()
-            
+            #city = form.save()
             #get cityname from validated bound data
             name = form.cleaned_data["name"]
             print(name)
@@ -53,6 +52,7 @@ def search(request):
             if City.objects.filter(name=name).exists():
                 messages.error(request, f"The city {name} already exists in the database.")
             else:
+                city = form.save()
                 response = requests.get(url.format(city.name, api_key)).json()
                 #import pdb;pdb.set_trace()
                 if response.get('cod') == 200:
@@ -63,9 +63,9 @@ def search(request):
                         #"icon" : response['weather'][0]['icon']
                         }
                     weather_list.append(weather)
-            context = {"weather_list" : weather_list, 'form' : form}
+                context = {"weather_list" : weather_list, 'form' : form}
             #city.country = get_country(city.name)
-            city.save()
+                city.save()
 
         else:
             print(form.errors)  # Print form errors for debugging
