@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from .models import City
 from django.utils import timezone
 from .forms import CityForm
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 import requests, json
 #add messages to your views that can be displayed to users
 from django.contrib import messages
@@ -16,8 +16,26 @@ from django.conf import settings
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 
+#https://github.com/django/django/blob/main/django/views/generic/list.py
 class CityListView(ListView):
     model = City
+
+class CityDetailView(DetailView):
+    model = City
+    def get_context_data(self, **kwargs):
+        #retrieves the existing context prepared by DetailView
+        context = super().get_context_data(**kwargs)
+        city = self.get_object()
+        weather = {
+            "city": city.name,
+            "temperature": city.temperature,
+            "description": city.description,
+            "icon": city.icon
+        }
+        context["weather"] = weather
+        return context
+
+       
 
 def home(request):
     context = {"title":"WEATHER APP"}
@@ -56,16 +74,22 @@ def search(request):
                 response = requests.get(url.format(city.name, api_key)).json()
                 #import pdb;pdb.set_trace()
                 if response.get('cod') == 200:
+                    city = City(
+                        name = name,
+                        temperature = response['main']['temp'],
+                        description = response['weather'][0]['description'],
+                        icon = response['weather'][0]['icon']
+                    )
+                    city.save()
                     weather = {
                         "city" : city.name,
-                        "temperature" : response['main']['temp'],
-                        "description" : response['weather'][0]['description'],
-                        #"icon" : response['weather'][0]['icon']
+                        "temperature" : city.temperature,
+                        "description" : city. description,
+                        "icon" : city.icon
                         }
                     weather_list.append(weather)
-                context = {"weather_list" : weather_list, 'form' : form}
+                    context = {"weather_list" : weather_list, 'form' : form}
             #city.country = get_country(city.name)
-                city.save()
 
         else:
             print(form.errors)  # Print form errors for debugging
