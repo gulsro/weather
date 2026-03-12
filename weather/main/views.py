@@ -20,6 +20,8 @@ from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 class CityListView(ListView):
     model = City
 
+# detail_list.html and main.html are actually same
+#any other way to combine them? dry dry dry
 class CityDetailView(DetailView):
     model = City
     def get_context_data(self, **kwargs):
