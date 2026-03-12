@@ -19,6 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/', include('main.auth_urls')),   # Keycloak route
     path('', include('main.urls')), #namespace for projects url
                             #in url sometimes we use main:<viewname>, namespace proves that main
 ]

@@ -13,7 +13,7 @@
     <a href="{% url 'main:citys' %}">See you search history</a>
 </body>
 </html> -->
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,4 +89,108 @@
     </footer>
 </body>
 </html>
+ -->
 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css" />
+    <style>
+        body { background-color: #FFE4B2; }
+        input.input { background-color: #F0F8FF; color: #333; }
+        .button.is-success { background-color: #9370DB; color: #fff; }
+        .footer { background-color: #EC7063; color: #fff; padding: 1rem; text-align: center; }
+        .box { background-color: #D7BDE2; color: #17202A; }
+        .hero-body { text-align: center; }
+        .navbar { background-color: #EC7063; color: #fff; padding: 0.5rem; }
+        .navbar a { color: #fff; font-weight: bold; margin-right: 1rem; }
+        .login-box {
+            background-color: #D7BDE2;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .button.is-keycloak {
+            background-color: #4A90D9;
+            color: #fff;
+            font-size: 1.1rem;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .button.is-keycloak:hover { background-color: #357ABD; color: #fff; }
+        .button.is-logout {
+            background-color: #E74C3C;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+        }
+        .button.is-logout:hover { background-color: #C0392B; color: #fff; }
+        .user-greeting { font-size: 1.1rem; margin-bottom: 1rem; color: #17202A; }
+    </style>
+</head>
+<body>
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">{{ title }}</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half has-text-centered">
+                    <p class="is-size-5 has-text-weight-bold">
+                        Most accurate real-time weather information for you!
+                    </p>
+
+                    <div class="login-box">
+                        {% if userinfo %}
+                            {# ── User is logged in ── #}
+                            <p class="user-greeting">
+                                👋 Welcome, <strong>{{ userinfo.preferred_username }}</strong>!
+                            </p>
+                            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                                <a class="button is-primary is-outlined" href="{% url 'main:search' %}">
+                                    Search weather now
+                                </a>
+                                <a class="button is-link is-outlined" href="{% url 'main:citys' %}">
+                                    See your search history
+                                </a>
+                                <a class="button is-logout" href="{% url 'keycloak_logout' %}">
+                                    Logout
+                                </a>
+                            </div>
+                        {% else %}
+                            {# ── User is NOT logged in ── #}
+                            <p style="margin-bottom: 1.5rem; color: #555;">
+                                Please log in to access the weather search.
+                            </p>
+                            <a class="button is-keycloak" href="{% url 'keycloak_login' %}">
+                                🔐 Login with Keycloak
+                            </a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>&copy; 2024 Weather App. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     {% load static %}
@@ -101,5 +101,112 @@
     </section>
     <footer class="footer">
     </footer>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <title>What's the weather like?</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css" />
+    <style>
+        body { background-color: #FFE4B2; }
+        input.input { background-color: #F0F8FF; color: #333; }
+        .button.is-success { background-color: #9370DB; color: #fff; }
+        .footer { background-color: #EC7063; }
+        .box { background-color: #D7BDE2; color: #17202A; }
+        .navbar { background-color: #EC7063; }
+        .navbar-item, .navbar-item:hover { color: #fff; }
+        .button.is-logout {
+            background-color: #E74C3C;
+            color: #fff;
+            border: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar" role="navigation">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; padding: 0.5rem 1rem;">
+        <a class="button is-primary is-outlined" href="{% url 'main:home' %}">Home Page</a>
+        {% if userinfo %}
+        <div style="display:flex; align-items:center; gap:1rem;">
+            <span style="color:#fff; font-weight:bold;">
+                👤 {{ userinfo.preferred_username }}
+            </span>
+            <a class="button is-logout" href="{% url 'keycloak_logout' %}">Logout</a>
+        </div>
+        {% endif %}
+    </div>
+</nav>
+
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">What's the weather like?</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form }}
+                        <div class="field has-addons">
+                            <div class="control">
+                                <button class="button is-success">Add City</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    {% for weather in weather_list %}
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-50x50">
+                                    <img src="http://openweathermap.org/img/w/10d.png" alt="Image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <span class="title">{{ weather.city }}</span>
+                                        <br>
+                                        <span class="subtitle">{{ weather.temperature }}° F</span>
+                                        <br>{{ weather.description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer"></footer>
 </body>
 </html>

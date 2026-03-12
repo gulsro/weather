@@ -13,8 +13,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 
-from .env import OPENWEATHERMAP_API_KEY  # Import the variable from env.py
-
+from .env import (
+    OPENWEATHERMAP_API_KEY,  # Import the variable from env.py
+    KEYCLOAK_CLIENT_ID,
+    KEYCLOAK_CLIENT_SECRET,
+    KEYCLOAK_REDIRECT_URI,
+)
 # Use the variable as needed
 API_KEY = OPENWEATHERMAP_API_KEY
 
@@ -128,3 +132,10 @@ STATICFILES_DIRS = [BASE_DIR / "main" / "static"]
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Keycloak settings
+KEYCLOAK_URL         = "http://localhost:8080/realms/go-app"
+KEYCLOAK_CLIENT_ID   = KEYCLOAK_CLIENT_ID
+KEYCLOAK_CLIENT_SECRET = KEYCLOAK_CLIENT_SECRET
+KEYCLOAK_REDIRECT_URI  = KEYCLOAK_REDIRECT_URI
