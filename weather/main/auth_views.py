@@ -13,10 +13,13 @@ from django.http import HttpResponse
 
 #NOTE Same as keycloak-go-app
 _BASE       = settings.KEYCLOAK_URL
-_AUTH_URL   = _BASE + "/protocol/openid-connect/auth"
-_TOKEN_URL  = _BASE + "/protocol/openid-connect/token"
-_LOGOUT_URL = _BASE + "/protocol/openid-connect/logout"
+# _AUTH_URL   = _BASE + "/protocol/openid-connect/auth"
+# _TOKEN_URL  = _BASE + "/protocol/openid-connect/token"
+# _LOGOUT_URL = _BASE + "/protocol/openid-connect/logout"
 
+_AUTH_URL    = settings.KEYCLOAK_BROWSER_URL + "/protocol/openid-connect/auth"   # browser redirect
+_TOKEN_URL   = _BASE + "/protocol/openid-connect/token"      # Django calls this directly
+_LOGOUT_URL  = settings.KEYCLOAK_BROWSER_URL + "/protocol/openid-connect/logout" # browser redirect
 
 def keycloak_login(request):
     """

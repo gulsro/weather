@@ -1,0 +1,32 @@
+services:
+  keycloak-app:
+    image: quay.io/keycloak/keycloak:24.0.3
+    environment:
+      - KC_HOSTNAME=localhost
+      - KC_HOSTNAME_PORT=7800
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    command: ["start-dev", "--http-port", "7800"]
+    ports:
+      - "7800:7800"
+    networks:
+      - app
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+
+  weather-app:
+    build: .
+    env_file: .env 
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge    
+
+volumes:
+  keycloak-data:

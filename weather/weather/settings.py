@@ -12,15 +12,18 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+import os
 
-from .env import (
-    OPENWEATHERMAP_API_KEY,  # Import the variable from env.py
-    KEYCLOAK_CLIENT_ID,
-    KEYCLOAK_CLIENT_SECRET,
-    KEYCLOAK_REDIRECT_URI,
-)
+# from .env import (
+#     OPENWEATHERMAP_API_KEY,  # Import the variable from env.py
+#     KEYCLOAK_CLIENT_ID,
+#     KEYCLOAK_CLIENT_SECRET,
+#     KEYCLOAK_REDIRECT_URI,
+# )
+
 # Use the variable as needed
-API_KEY = OPENWEATHERMAP_API_KEY
+API_KEY = os.getenv("OPENWEATHERMAP_API_KEY")
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -135,7 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Keycloak settings
-KEYCLOAK_URL         = "http://localhost:8080/realms/go-app"
-KEYCLOAK_CLIENT_ID   = KEYCLOAK_CLIENT_ID
-KEYCLOAK_CLIENT_SECRET = KEYCLOAK_CLIENT_SECRET
-KEYCLOAK_REDIRECT_URI  = KEYCLOAK_REDIRECT_URI
+KEYCLOAK_URL         = "http://keycloak-app:7800/realms/weather-app"
+KEYCLOAK_CLIENT_ID = os.getenv("KEYCLOAK_CLIENT_ID")
+KEYCLOAK_CLIENT_SECRET = os.getenv("KEYCLOAK_CLIENT_SECRET")
+KEYCLOAK_REDIRECT_URI = os.getenv("KEYCLOAK_REDIRECT_URI")
+
+KEYCLOAK_BROWSER_URL  = "http://localhost:7800/realms/weather-app"
