@@ -138,9 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Keycloak settings
-KEYCLOAK_URL         = "http://keycloak-app:7800/realms/weather-app"
+KEYCLOAK_URL = os.getenv("KEYCLOAK_URL")
 KEYCLOAK_CLIENT_ID = os.getenv("KEYCLOAK_CLIENT_ID")
 KEYCLOAK_CLIENT_SECRET = os.getenv("KEYCLOAK_CLIENT_SECRET")
 KEYCLOAK_REDIRECT_URI = os.getenv("KEYCLOAK_REDIRECT_URI")
 
-KEYCLOAK_BROWSER_URL  = "http://localhost:7800/realms/weather-app"
+KEYCLOAK_BROWSER_URL  = os.getenv("KEYCLOAK_BROWSER_URL")
