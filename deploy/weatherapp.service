@@ -1,0 +1,13 @@
+[Unit]
+Description=Weather App
+After=docker.service
+Requires=docker.service
+
+[Service]
+WorkingDirectory=/home/ubuntu/YOUR_REPO
+ExecStart=/usr/bin/docker-compose up
+ExecStop=/usr/bin/docker-compose down
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

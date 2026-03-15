@@ -15,7 +15,7 @@ services:
       - keycloak-data:/opt/keycloak/data
 
   weather-app:
-    build: .
+    build: ./docker
     env_file: .env 
     ports:
       - "8000:8000"
