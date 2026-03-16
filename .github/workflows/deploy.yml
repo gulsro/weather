@@ -20,7 +20,7 @@ jobs:
       #pipeline stops if tests fail
       - name: Run tests
         run: |
-          pip install -r /docker/requirements.txt
+          pip install -r docker/requirements.txt
           cd weather && python manage.py test
 
       # ssh into the server and redeploy
