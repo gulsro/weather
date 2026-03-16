@@ -19,6 +19,13 @@ jobs:
       #  run tests 
       #pipeline stops if tests fail
       - name: Run tests
+        env:
+          KEYCLOAK_BROWSER_URL: ${{ secrets.KEYCLOAK_BROWSER_URL }}
+          KEYCLOAK_CLIENT_ID: ${{ secrets.KEYCLOAK_CLIENT_ID }}
+          KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
+          KEYCLOAK_REDIRECT_URI: ${{ secrets.KEYCLOAK_REDIRECT_URI }}
+          OPENWEATHERMAP_API_KEY: ${{ secrets.OPENWEATHERMAP_API_KEY }}
+          DJANGO_SETTINGS_MODULE: weather.settings
         run: |
           pip install -r docker/requirements.txt
           cd weather && python manage.py test
