@@ -17,15 +17,14 @@ _BASE       = settings.KEYCLOAK_URL
 # _TOKEN_URL  = _BASE + "/protocol/openid-connect/token"
 # _LOGOUT_URL = _BASE + "/protocol/openid-connect/logout"
 
-_AUTH_URL    = settings.KEYCLOAK_BROWSER_URL + "/protocol/openid-connect/auth"   # browser redirect
-_TOKEN_URL   = _BASE + "/protocol/openid-connect/token"      # Django calls this directly
-_LOGOUT_URL  = settings.KEYCLOAK_BROWSER_URL + "/protocol/openid-connect/logout" # browser redirect
 
 def keycloak_login(request):
     """
     Build the Keycloak authorization URL and redirect the user there.
     Keycloak will show its login page, then redirect back to our callback.
     """
+    _AUTH_URL    = settings.KEYCLOAK_BROWSER_URL + "/protocol/openid-connect/auth"   # browser redirect
+    
     params = {
         "client_id":     settings.KEYCLOAK_CLIENT_ID,
         "response_type": "code",
@@ -41,6 +40,8 @@ def keycloak_callback(request):
     We POST the code to Keycloak's token endpoint to get an access token,
     then store it in the Django session and redirect to the weather search page.
     """
+    _TOKEN_URL   = _BASE + "/protocol/openid-connect/token"      # Django calls this directly
+    
     code = request.GET.get("code")
     if not code:
         return HttpResponse("Missing authorization code from Keycloak.", status=400)
@@ -88,6 +89,8 @@ def keycloak_logout(request):
     2. Redirect to Keycloak's logout endpoint so the SSO session is also ended.
        Keycloak will redirect the user back to /home/ afterwards.
     """
+    _LOGOUT_URL  = settings.KEYCLOAK_BROWSER_URL + "/protocol/openid-connect/logout" # browser redirect
+    
     id_token = request.session.get("id_token", "")
     request.session.flush()  # wipe everything from the Django session
 
